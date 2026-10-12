@@ -1,32 +1,50 @@
-# GrokTech — Current
+# GrokTech
 
-An independent local design study on `primate/current`. The existing GrokTech wordmark, consultant positioning, seven areas of work, four-step approach, contact address and Calendly destination are preserved.
+The public site for GrokTech LLC, an independent, hands-on technical consultancy. The Current design uses warm ivory, electric blue, kinetic typography, and a continuous ribbon to express how people and systems connect.
 
-Current uses an ivory editorial canvas and a substantial electric-blue ribbon as its visual language. The ribbon arrives with the headline, bends as the visitor scrolls, and changes its shape with each service selection. A separate directional wipe introduces service copy while the sculpture stays visible. The rest of the page carries the movement through layered rings, a drawing process path and travelling contact typography.
+Plain HTML, CSS, and JavaScript. Fonts, artwork, and icons are self-hosted; there is no framework, package installation, build step, analytics dependency, or third-party runtime.
 
-## Preview
-
-From this checkout:
+## Local preview
 
 ```sh
 node scripts/preview.mjs . 4188
 ```
 
-Open `http://localhost:4188/`. The server binds to loopback only. There is no build step and no external runtime dependency.
+Open http://localhost:4188. The server binds to loopback and sends uncached responses. The published site is https://groktech.xyz.
 
-## Motion and interaction
+## Source
 
-- The opening composition settles within 1.7 seconds.
-- Native page scrolling changes ribbon control points, headline position, statement rings, the process drawing and contact type. There is no scroll interception or long pinned spacer.
-- Seven service selections share one SVG sculpture. Each transition morphs its two cubic curves over 1.45 seconds, moves the active index marker, masks the heading and carries a blue wipe across the copy pane. Text moves without scaling.
-- The service row uses progressively enhanced anchors with tab semantics, arrow-key navigation, Home/End and explicit previous/next buttons. On phones the index row scrolls independently in its horizontal direction; the page retains native vertical scrolling.
-- Rapid selections cancel previous animations and immediately select the latest requested content.
-- The footer motion control pauses all effects. A live operating-system reduced-motion change cancels running Web Animations and animation frames, and settles the current content. Manual pause survives OS preference changes.
-- The ribbon morph stops when its service stage leaves the viewport. Hidden documents cancel active animation. Scrolling schedules a single frame; there is no idle rendering loop.
-- Without JavaScript, all seven service descriptions are visible and their index anchors still work. Copy and motion controls remain hidden; contact links continue working.
+- `index.html`: content, seven service areas, contact destinations, and search/sharing metadata.
+- `assets/css/site.css`: responsive compositions, ribbon surfaces, focus states, and reduced-motion styling.
+- `assets/js/site.js`: finite animation coordination, service navigation, native-scroll compositions, and clipboard enhancement.
+- `404.html`: self-contained error page with absolute asset URLs so nested missing paths remain usable.
+- `assets/logo-*.svg`: original GrokTech wordmark geometry.
+- `assets/favicon.svg`, `favicon.ico`, `assets/apple-touch-icon.png`: coordinated ribbon icons.
+- `assets/og-current.jpg`: 1200 × 630 sharing image. Its editable HTML/SVG source is `scripts/social-card.html`; render that page at 1200 × 630 after local fonts load when changing the sharing design.
+- `assets/fonts/`: Archivo and Instrument Serif, with their licenses.
+- `robots.txt`, `sitemap.xml`: public discovery information.
 
-## Local verification
+## Editing and checks
 
-Chromium rendering checked at 320, 390, 768, 1024, 1440 and 1920 pixels with no horizontal page overflow or page errors. Every service panel was checked for clipping at 320, 390, 768 and 1440 pixels. Keyboard Home/End, fast repeated selection, clipboard feedback, mid-transition reduced motion, manual pause persistence and the no-JavaScript fallback passed. The ribbon transition was visually inspected at 400 ms, 900 ms and settled state, then refined so the wipe never hides the sculpture's motion. Phone ribbon placement and desktop headline contrast were also refined after rendering.
+After changing runtime assets, logos, or icons, refresh the content fingerprints and run the dependency-free checks:
 
-Assets are local. No production deployment is performed by this branch.
+```sh
+node scripts/version-assets.mjs
+node scripts/check.mjs
+```
+
+The checker verifies local asset references and fingerprints, fragment destinations, labels, core service/contact content, structured business metadata, domain configuration, and JavaScript syntax. Browser review is still necessary for layout and interaction changes.
+
+For release verification, exercise narrow phones, short laptops, and wide screens; all seven services; keyboard/touch and browser history; rapid selection changes; live reduced motion and manual pause; no-JavaScript reading and unavailable enhancement APIs. Inspect transitions while moving as well as their settled states.
+
+## Motion and accessibility
+
+Page scrolling stays native. The ribbon changes shape with scroll and service selection; type and copy transition in coordinated finite sequences. There is no perpetual rendering loop. A visible motion control and the operating system's reduced-motion preference stop decorative motion. Hidden and offscreen scenes settle. Keyboard navigation, direct service fragments, and touch share the same content.
+
+Without JavaScript, every service remains readable and booking/email are ordinary links. Clipboard access is optional. No contact details or customer data are stored by the site.
+
+## Deployment
+
+GitHub Pages publishes the repository root from `main`. Keep `.nojekyll` and `CNAME` (`groktech.xyz`) in place. Pushes to `main` trigger the native Pages build and deployment. Verify the build's exact commit, the public HTML and fingerprinted assets, and desktop/mobile rendering before treating a release as complete.
+
+The site links to the existing Calendly and email destinations. Calendar-provider setup is managed separately from this repository.

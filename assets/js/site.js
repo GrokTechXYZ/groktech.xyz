@@ -36,8 +36,37 @@
   const tabs = [...document.querySelectorAll('[data-service]')];
   const panels = [...document.querySelectorAll('.service-panel')];
   const marker = document.querySelector('.nav-marker');
+  const initialService = panels.findIndex(panel => `#${panel.id}` === location.hash);
+  selected = Math.max(0, initialService);
   const stage = document.querySelector('.service-stage');
   const wipe = document.querySelector('.service-wipe');
+  // A broad, low-contrast reflection gives the ribbon a satin surface. The
+  // original paths remain the complete fallback when JavaScript is unavailable.
+  const addSurface = (selector, name) => {
+    const base = document.querySelector(selector);
+    const svg = base.ownerSVGElement;
+    const namespace = 'http://www.w3.org/2000/svg';
+    const gradient = document.createElementNS(namespace, 'linearGradient');
+    gradient.id = `${name}-surface-light`;
+    gradient.setAttribute('x1', '0');
+    gradient.setAttribute('y1', '0');
+    gradient.setAttribute('x2', '1');
+    gradient.setAttribute('y2', '.7');
+    [[0, '#ffffff', .02], [.25, '#ffffff', .25], [.5, '#ffffff', .035], [.72, '#10205f', .14], [1, '#ffffff', .12]].forEach(([offset, color, opacity]) => {
+      const stop = document.createElementNS(namespace, 'stop');
+      stop.setAttribute('offset', String(offset));
+      stop.setAttribute('stop-color', color);
+      stop.setAttribute('stop-opacity', String(opacity));
+      gradient.append(stop);
+    });
+    svg.querySelector('defs').append(gradient);
+    const surface = base.cloneNode(false);
+    surface.setAttribute('class', `${name}-surface`);
+    surface.setAttribute('stroke', `url(#${gradient.id})`);
+    base.after(surface);
+  };
+  addSurface('.hero-ribbon', 'hero');
+  addSurface('.stream', 'stream');
   const streamPaths = [...document.querySelectorAll('.service-art path')];
   const shapes = [
     [-80,350,120,80,160,460,320,250,480,40,500,430,760,110],
@@ -51,9 +80,10 @@
   let curve = [...shapes[0]];
   const pathData = points => `M${points[0]} ${points[1]}C${points.slice(2,8).join(' ')}C${points.slice(8).join(' ')}`;
   const renderCurve = points => streamPaths.forEach(path => path.setAttribute('d', pathData(points)));
-  const placeMarker = (motion = true) => {
+  const placeMarker = (motion = true, previousRect = null) => {
+    if (!motion) marker.getAnimations?.().forEach(animation => animation.cancel());
     const tab = tabs[selected];
-    const before = marker.getBoundingClientRect();
+    const before = previousRect || marker.getBoundingClientRect();
     marker.style.width = `${tab.offsetWidth}px`;
     marker.style.transform = `translateX(${tab.offsetLeft}px)`;
     if (motion && before.width && canMove()) {
@@ -64,6 +94,25 @@
       ], { duration: 720 });
     }
   };
+  const fitStage = (motion = false) => {
+    if (!motion) stage.getAnimations?.().forEach(animation => animation.cancel());
+    const before = stage.getBoundingClientRect().height;
+    if (matchMedia('(max-width: 700px)').matches) {
+      const panel = panels[selected];
+      const height = Math.ceil([...panel.children].reduce((total, child) => total + child.offsetHeight, 0));
+      stage.style.height = `${height}px`;
+      if (motion && Math.abs(before - height) > 1) {
+        animate(stage, [{ height: `${before}px` }, { height: `${height}px` }], { duration: 650 });
+      }
+    } else stage.style.removeProperty('height');
+  };
+  const updateIndexEdges = () => {
+    const max = nav.scrollWidth - nav.clientWidth;
+    nav.dataset.overflow = max > 2 ? 'true' : 'false';
+    nav.dataset.start = nav.scrollLeft < 2 ? 'true' : 'false';
+    nav.dataset.end = nav.scrollLeft > max - 2 ? 'true' : 'false';
+  };
+  nav.addEventListener('scroll', updateIndexEdges, { passive: true });
   const settle = () => {
     transitionToken++;
     panels.forEach((panel, index) => { panel.hidden = index !== selected; });
@@ -71,12 +120,15 @@
     renderCurve(curve);
     placeMarker(false);
     wipe.style.transform = 'translateX(-105%)';
+    fitStage();
+    updateIndexEdges();
   };
-  const select = (index, source = 'keyboard') => {
+  const select = (index, source = 'keyboard', travelDirection = null) => {
     index = (index + tabs.length) % tabs.length;
     if (selected === index) return;
-    const direction = index > selected ? 1 : -1;
+    const direction = travelDirection || (index > selected ? 1 : -1);
     const fromCurve = [...curve];
+    const markerBefore = marker.getBoundingClientRect();
     cancelMotion();
     selected = index;
     const token = ++transitionToken;
@@ -88,7 +140,11 @@
       panel.hidden = i !== selected;
       panel.setAttribute('aria-hidden', String(i !== selected));
     });
-    placeMarker(true);
+    placeMarker(true, markerBefore);
+    fitStage(true);
+    if (source !== 'hash') {
+      try { history.replaceState(history.state, '', `#${panels[selected].id}`); } catch {}
+    }
     const panel = panels[selected];
     if (canMove()) {
       const title = panel.querySelector('.service-left');
@@ -98,10 +154,11 @@
         { transform: 'translateX(0%)', offset: .38 },
         { transform: `translateX(${105 * direction}%)`, offset: 1 }
       ], { duration: 850, easing: 'cubic-bezier(.65,0,.25,1)' });
+      const compact = matchMedia('(max-width: 700px)').matches;
       animate(title, [
-        { transform: `translateY(${75 * direction}px)`, opacity: 0, clipPath: 'inset(100% 0 0 0)' },
-        { transform: 'translateY(0)', opacity: 1, clipPath: 'inset(0% 0 0 0)' }
-      ], { duration: 930, delay: 200, fill: 'backwards' });
+        { transform: `translateY(${(compact ? 24 : 62) * direction}px)`, opacity: 0, clipPath: compact ? 'inset(0)' : 'inset(100% 0 0 0)' },
+        { transform: 'translateY(0)', opacity: 1, clipPath: 'inset(0)' }
+      ], { duration: compact ? 660 : 880, delay: compact ? 110 : 170, fill: 'backwards' });
       [...content.children].forEach((child, i) => animate(child, [
         { transform: `translateX(${55 * direction}px)`, opacity: 0 },
         { transform: 'translateX(0)', opacity: 1 }
@@ -134,13 +191,13 @@
     tab.setAttribute('role', 'tab');
     tab.id = `range-tab-${index}`;
     tab.setAttribute('aria-controls', panels[index].id);
-    tab.setAttribute('aria-selected', String(index === 0));
-    tab.tabIndex = index === 0 ? 0 : -1;
+    tab.setAttribute('aria-selected', String(index === selected));
+    tab.tabIndex = index === selected ? 0 : -1;
     panels[index].setAttribute('role', 'tabpanel');
     panels[index].setAttribute('aria-labelledby', tab.id);
-    panels[index].setAttribute('aria-hidden', String(index !== 0));
+    panels[index].setAttribute('aria-hidden', String(index !== selected));
     panels[index].tabIndex = 0;
-    panels[index].hidden = index !== 0;
+    panels[index].hidden = index !== selected;
     tab.addEventListener('click', event => { event.preventDefault(); select(index, event.detail ? 'pointer' : 'keyboard'); });
     tab.addEventListener('keydown', event => {
       let next;
@@ -149,14 +206,27 @@
       if (event.key === 'Home') next = 0;
       if (event.key === 'End') next = tabs.length - 1;
       if (event.key === ' ') { event.preventDefault(); select(index); }
-      if (next !== undefined) { event.preventDefault(); select(next); tabs[next].focus({ preventScroll: true }); }
+      if (next !== undefined) {
+        event.preventDefault();
+        const direction = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : null;
+        select(next, 'keyboard', direction);
+        tabs[next].focus({ preventScroll: true });
+      }
     });
   });
   document.querySelector('.service-arrows').hidden = false;
-  document.querySelector('[data-previous]').addEventListener('click', () => select(selected - 1, 'pointer'));
-  document.querySelector('[data-next]').addEventListener('click', () => select(selected + 1, 'pointer'));
+  document.querySelector('[data-previous]').addEventListener('click', () => select(selected - 1, 'pointer', -1));
+  document.querySelector('[data-next]').addEventListener('click', () => select(selected + 1, 'pointer', 1));
+  curve = [...shapes[selected]];
   renderCurve(curve);
   placeMarker(false);
+  updateIndexEdges();
+  addEventListener('hashchange', () => {
+    const index = panels.findIndex(panel => `#${panel.id}` === location.hash);
+    if (index < 0) return;
+    select(index, 'hash');
+    stage.scrollIntoView({ block: 'start', behavior: 'instant' });
+  });
 
   const hero = document.querySelector('.hero');
   const heroLines = [...document.querySelectorAll('.hero-line')];
@@ -207,7 +277,13 @@
     scrollFrame = request(() => { scrollFrame = 0; renderScenes(); });
   };
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', () => { placeMarker(false); if (canMove()) onScroll(); });
+  addEventListener('resize', () => {
+    placeMarker(false);
+    fitStage();
+    updateIndexEdges();
+    if (canMove()) onScroll();
+  });
+  document.fonts?.ready.then(() => { placeMarker(false); fitStage(); updateIndexEdges(); });
   const updateMotion = () => {
     cancelMotion();
     settle();
@@ -228,17 +304,45 @@
   // Finish the finite morph when its section leaves the viewport; no background loop.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) if (entry.target === stage && !entry.isIntersecting) {
-        transitionToken++;
-        stage.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
-        curve = [...shapes[selected]];
-        renderCurve(curve);
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          entry.target.getAnimations?.({ subtree: true }).forEach(animation => animation.cancel());
+        }
+        if (entry.target === stage && !entry.isIntersecting) {
+          transitionToken++;
+          curve = [...shapes[selected]];
+          renderCurve(curve);
+        }
       }
     }, { rootMargin: '80px' });
     observer.observe(stage);
+    observer.observe(hero);
+    // Typography arrives in related groups, once. Content is never pre-hidden,
+    // and interrupting the entrance simply restores its normal readable state.
+    const seen = new WeakSet();
+    const entryObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting || seen.has(entry.target)) return;
+        seen.add(entry.target);
+        entryObserver.unobserve(entry.target);
+        if (!canMove()) return;
+        const children = entry.target.matches('.principle-grid')
+          ? [...entry.target.children]
+          : [...entry.target.querySelectorAll(':scope > h2, :scope > .eyebrow, :scope > .intro-lead, :scope > .define-meaning')];
+        children.forEach((child, index) => animate(child, [
+          { transform: `translateY(${child.matches('h2') ? 34 : 22}px)`, opacity: 0, clipPath: 'inset(0 0 16% 0)' },
+          { transform: 'translateY(0)', opacity: 1, clipPath: 'inset(0)' }
+        ], { duration: child.matches('h2') ? 900 : 720, delay: index * 80, fill: 'backwards' }));
+      });
+    }, { threshold: .18 });
+    document.querySelectorAll('.introduction > div, .section-head, .approach-head, .definition > div:last-child, .principles, .principle-grid').forEach(section => {
+      entryObserver.observe(section);
+      observer.observe(section);
+    });
   }
   updateMotion();
-  if (canMove()) {
+  if (initialService >= 0) stage.scrollIntoView({ block: 'start', behavior: 'instant' });
+  if (canMove() && initialService < 0 && visible(hero)) {
     heroLines.forEach((line, index) => animate(line, [
       { transform: `translateY(${120 + index * 25}px)`, opacity: 0, clipPath: 'inset(100% 0 0 0)' },
       { transform: 'translateY(0)', opacity: 1, clipPath: 'inset(0% 0 0 0)' }
