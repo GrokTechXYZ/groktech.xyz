@@ -9,3 +9,12 @@
 @media(max-width:360px){:root{--gutter:21px}.hero{min-height:810px}.hero-composition{padding-top:67px}h1{font-size:18vw}.hero-aside{margin-top:45px}.hero-intro{font-size:12px}.primary-link{font-size:11px;gap:28px}.email{font-size:10px!important}.site-header .wordmark{width:112px}.perception-copy h2{font-size:57px}.scene-kicker>span:last-child{max-width:120px}.practice-intro h2{font-size:52px}.index-row h3{font-size:22px}.row-note{font-size:9px}.work-heading h2{font-size:46px}.contact h2{font-size:62px}.project-meta{padding-left:36px}.project-meta h3{font-size:25px}.project-number{font-size:28px}}
 
 .hero-location{margin-top:10px;font-size:12px;line-height:1.6;color:var(--gold)}
+.hero-location a{text-decoration:underline;text-underline-offset:4px}
+.service-detail-link{display:inline-flex;align-items:center;gap:14px;min-height:44px;margin-top:12px;font-size:12px;color:var(--blue);text-decoration:underline;text-underline-offset:4px;line-height:1.6}
+.service-detail-link:hover{color:var(--gold)}
+.local-introduction{display:grid;grid-template-columns:1fr 1.15fr;gap:10%;padding-top:65px}
+.local-introduction .eyebrow{color:var(--gold);margin-bottom:20px}
+.local-introduction h3{font-size:clamp(36px,4vw,62px);font-weight:380;line-height:1.1;letter-spacing:-.04em}
+.local-introduction h3 em{color:var(--blue)}
+.local-introduction>div>p:not(.eyebrow){font-size:14px;color:var(--muted);line-height:1.8}
+@media(max-width:760px){.local-introduction{grid-template-columns:1fr;gap:25px;padding-top:45px}.local-introduction>div>p:not(.eyebrow){font-size:13px}}
