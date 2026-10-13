@@ -24,6 +24,8 @@ After a release, verify the GitHub Pages deployment for the exact commit, compar
 
 Use first person and no em dashes. No invented region, response promise, clients, certification or outcomes. The owner sources racks and hardware, mounts and cables servers, designs redundant networks and failover, configures virtualization, builds software and automates operations.
 
+The owner is based in Wekiwa Springs, Central Florida. Make this visible in the introduction and contact section, with matching search/share descriptions and business location metadata. This identifies the home base without defining a service radius.
+
 The proof line retains owner-confirmed 21 years in IT, historical 99.99% uptime and experience meeting CMMC Level 2 and ISO 27001 requirements. These are not a future uptime guarantee or an independent certification claim.
 
 Tezos Systems was built for the community. Its image shows the Valley theme with resolved data. Tez Capital is a collaboration between Berry Studio and GrokTech, building and maintaining TezBake, TezPay, TezGov, TezWatch and TezSign, with documentation, support and communications since 2021. Public project images are snapshots, not live dashboards.
