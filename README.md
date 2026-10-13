@@ -1,50 +1,33 @@
-# GrokTech
+# GrokTech / Perspective
 
-The public site for GrokTech LLC, an independent, hands-on technical consultancy. The Current design uses warm ivory, electric blue, kinetic typography, and a continuous ribbon to express how people and systems connect.
+A continuous spatial experience for an independent, hands-on technologist. The page connects perception, complete IT systems, public contributions and a direct invitation. GrokTech is the public identity. No personal aliases, employment chronology or life story.
 
-Plain HTML, CSS, and JavaScript. Fonts, artwork, and icons are self-hosted; there is no framework, package installation, build step, analytics dependency, or third-party runtime.
+## Design
 
-## Local preview
+Luminous ivory, deep slate lettering, champagne gold and clear blue. The light canvas keeps the atmosphere open while the sculpture uses translucent color and pearl highlights for depth. Self-hosted Archivo and Instrument Serif. The original GrokTech wordmark uses inline SVG and currentColor for legibility. An original folded light sculpture changes shape and framing across five scenes. The Golden Braid and The OA informed the connection, wholeness and atmosphere, not literal imagery or story references.
 
-```sh
-node scripts/preview.mjs . 4188
-```
+The same object guides the journey. Native scrolling stays in charge. Content and direct contact remain available immediately, without an entry gate. The canvas responds to scroll and fine-pointer movement, then settles. An engraved static fallback remains when JavaScript or canvas is unavailable. OS reduced motion and a persistent manual pause stop the decorative movement.
 
-Open http://localhost:4188. The server binds to loopback and sends uncached responses. The published site is https://groktech.xyz.
+Sound is optional and always off on load. A deliberate click enables original, quiet synthesized chords that briefly respond to scene changes. No recordings, autoplay, continuous hum or audio tracking. Leaving the tab silences it; switching sound off closes the audio context.
 
-## Source
+## Deployment and preview
 
-- `index.html`: content, seven service areas, contact destinations, and search/sharing metadata.
-- `assets/css/site.css`: responsive compositions, ribbon surfaces, focus states, and reduced-motion styling.
-- `assets/js/site.js`: finite animation coordination, service navigation, native-scroll compositions, and clipboard enhancement.
-- `404.html`: self-contained error page with absolute asset URLs so nested missing paths remain usable.
-- `assets/logo-*.svg`: original GrokTech wordmark geometry.
-- `assets/favicon.svg`, `favicon.ico`, `assets/apple-touch-icon.png`: coordinated ribbon icons.
-- `assets/og-current.jpg`: 1200 × 630 sharing image. Its editable HTML/SVG source is `scripts/social-card.html`; render that page at 1200 × 630 after local fonts load when changing the sharing design.
-- `assets/fonts/`: Archivo and Instrument Serif, with their licenses.
-- `robots.txt`, `sitemap.xml`: public discovery information.
+GitHub Pages serves this buildless site from the repository root on `main`, with the custom domain `groktech.xyz` and HTTPS enforced.
 
-## Editing and checks
+For local review run `node scripts/preview.mjs . 4192`. Private cross-device previews use Tailscale Serve to forward HTTPS to this loopback server. Keep host-specific preview addresses in local task notes. Earlier designs remain available in the local concept branches.
 
-After changing runtime assets, logos, or icons, refresh the content fingerprints and run the dependency-free checks:
+After a release, verify the GitHub Pages deployment for the exact commit, compare served assets with the source, and check the live desktop and phone layouts.
 
-```sh
-node scripts/version-assets.mjs
-node scripts/check.mjs
-```
+## Content
 
-The checker verifies local asset references and fingerprints, fragment destinations, labels, core service/contact content, structured business metadata, domain configuration, and JavaScript syntax. Browser review is still necessary for layout and interaction changes.
+Use first person and no em dashes. No invented region, response promise, clients, certification or outcomes. The owner sources racks and hardware, mounts and cables servers, designs redundant networks and failover, configures virtualization, builds software and automates operations.
 
-For release verification, exercise narrow phones, short laptops, and wide screens; all seven services; keyboard/touch and browser history; rapid selection changes; live reduced motion and manual pause; no-JavaScript reading and unavailable enhancement APIs. Inspect transitions while moving as well as their settled states.
+The proof line retains owner-confirmed 21 years in IT, historical 99.99% uptime and experience meeting CMMC Level 2 and ISO 27001 requirements. These are not a future uptime guarantee or an independent certification claim.
 
-## Motion and accessibility
+Tezos Systems was built for the community. Its image shows the Valley theme with resolved data. Tez Capital is a collaboration between Berry Studio and GrokTech, building and maintaining TezBake, TezPay, TezGov, TezWatch and TezSign, with documentation, support and communications since 2021. Public project images are snapshots, not live dashboards.
 
-Page scrolling stays native. The ribbon changes shape with scroll and service selection; type and copy transition in coordinated finite sequences. There is no perpetual rendering loop. A visible motion control and the operating system's reduced-motion preference stop decorative motion. Hidden and offscreen scenes settle. Keyboard navigation, direct service fragments, and touch share the same content.
+Primary contact is https://calendly.com/groktech. The fallback is the plain email link groktechllc@gmail.com. Both appear in the opening and at the end. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
 
-Without JavaScript, every service remains readable and booking/email are ordinary links. Clipboard access is optional. No contact details or customer data are stored by the site.
+## Verification
 
-## Deployment
-
-GitHub Pages publishes the repository root from `main`. Keep `.nojekyll` and `CNAME` (`groktech.xyz`) in place. Pushes to `main` trigger the native Pages build and deployment. Verify the build's exact commit, the public HTML and fingerprinted assets, and desktop/mobile rendering before treating a release as complete.
-
-The site links to the existing Calendly and email destinations. Calendar-provider setup is managed separately from this repository.
+Buildless HTML, CSS and JavaScript. No external runtime dependencies. After asset edits run `node scripts/version-assets.mjs`, then `node scripts/check.mjs`. Review all five scenes at desktop and phone sizes, shorter laptop viewports, keyboard, service hash links, clipboard, sound opt-in and cleanup, motion pause, live reduced-motion changes, canvas failure and no JavaScript. Verify served HTML and asset bytes over the tailnet before handoff.

@@ -1,0 +1,10 @@
+/* Motion follows attention. Every scene remains complete without enhancement. */
+.primary-link::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 10%,#fff7 50%,transparent 90%);transform:translateX(-160%);transition:transform .9s var(--ease);pointer-events:none}.primary-link:hover::before,.primary-link:focus-visible::before{transform:translateX(160%)}
+.text-link svg,.header-contact svg,.project-meta h3 svg{transition:transform .5s var(--ease)}.text-link:hover svg,.header-contact:hover svg,.project-meta h3 a:hover svg{transform:translate(3px,-3px)}
+.index-row summary::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .7s var(--ease)}.index-row[open] summary::before,.index-row summary:hover::before,.index-row summary:focus-visible::before{transform:scaleX(1);transform-origin:left}.index-row h3{transition:color .35s,transform .5s var(--ease)}.index-row summary:hover h3{color:var(--gold);transform:translateX(4px)}
+.project-preview::after{content:'';position:absolute;inset:0;border:1px solid #e7c99555;pointer-events:none;opacity:0;transition:opacity .5s}.project-preview:hover::after{opacity:1}.copy-email:active{transform:translateY(1px)}
+.motion-paused *, .motion-paused *::before,.motion-paused *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.motion-paused{scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.perception-stage,.practice-intro{position:relative;top:auto}.perception{height:auto;min-height:850px}}
+@media(forced-colors:active){.atmosphere,#experience-canvas,.experience-fallback{display:none}.primary-link{border:1px solid ButtonText}.index-row,.credibility-strip{border-color:CanvasText}.scene-nav{display:none}}
+.scene-nav a:focus-visible span{opacity:1}
+.experience-controls:not(:has(button:not([hidden]))){display:none}

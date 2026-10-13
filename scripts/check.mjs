@@ -10,6 +10,7 @@ let references = 0;
 const assert = (condition, message) => { if (!condition) failures.push(message); };
 for (const name of ['index.html', '404.html', 'scripts/social-card.html']) {
   const html = await readFile(resolve(root, name), 'utf8');
+  assert(!html.includes('\u2014'), `${name}: em dash found in page source`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
   assert(new Set(ids).size === ids.length, `${name}: duplicate IDs`);
   assert((html.match(/<h1\b/g) || []).length === 1, `${name}: expected one primary heading`);
@@ -36,20 +37,25 @@ for (const name of ['index.html', '404.html', 'scripts/social-card.html']) {
   }
   if (name === 'index.html') {
     assert(/href="https:\/\/calendly\.com\/groktech"/.test(html), 'Booking destination missing');
-    assert(/href="mailto:contact@groktech\.xyz"/.test(html), 'Email destination missing');
+    assert(/href="mailto:groktechllc@gmail\.com"/.test(html), 'Email destination missing');
     assert(/rel="canonical" href="https:\/\/groktech\.xyz\/"/.test(html), 'Canonical URL missing');
     for (const service of ['people', 'programming', 'automation', 'operations', 'networking', 'infrastructure', 'cloud']) {
       assert(ids.includes(`service-${service}`), `Missing service: ${service}`);
     }
-    for (const [, source] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    const entities = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, source]) => {
       const data = JSON.parse(source);
-      assert(data.name === 'GrokTech LLC' && data.foundingDate === '2021', 'Business metadata changed');
-    }
+      return data['@graph'] || [data];
+    });
+    const business = entities.find(entity => entity['@type'] === 'Organization');
+    assert(business?.legalName === 'GrokTech LLC' && business?.foundingDate === '2021', 'Business identity or founding year missing');
+    assert(business?.email === 'groktechllc@gmail.com', 'Business email is stale');
+    assert(business?.name === 'GrokTech', 'Public business identity is missing');
   }
 }
 const page = await readFile(resolve(root, 'index.html'), 'utf8');
 const css = await readFile(resolve(root, 'assets/css/site.css'), 'utf8');
-for (const [, value] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) {
+for (const match of css.matchAll(/url\((?:"([^"]*)"|'([^']*)'|([^\s)]*))\)/g)) {
+  const value = match[1] ?? match[2] ?? match[3];
   if (value.startsWith('data:')) continue;
   if (value.startsWith('#')) {
     assert(page.includes(`id="${value.slice(1)}"`), `Stylesheet: missing SVG paint target ${value}`);
@@ -61,7 +67,9 @@ for (const [, value] of css.matchAll(/url\(['"]?([^)'"\s]+)['"]?\)/g)) {
 }
 assert((await readFile(resolve(root, 'CNAME'), 'utf8')).trim() === 'groktech.xyz', 'Custom domain changed');
 assert((await readFile(resolve(root, 'sitemap.xml'), 'utf8')).includes('<loc>https://groktech.xyz/</loc>'), 'Homepage missing from sitemap');
-const syntax = spawnSync(process.execPath, ['--check', resolve(root, 'assets/js/site.js')], { encoding: 'utf8' });
-assert(syntax.status === 0, syntax.stderr || 'JavaScript syntax check failed');
+for (const file of ['assets/js/site.js', 'assets/js/experience.js', 'assets/js/sound.js']) {
+  const syntax = spawnSync(process.execPath, ['--check', resolve(root, file)], { encoding: 'utf8' });
+  assert(syntax.status === 0, syntax.stderr || `${file}: JavaScript syntax check failed`);
+}
 if (failures.length) { console.error(failures.join('\n')); process.exitCode = 1; }
 else console.log(`Site checks passed: ${references} local references, fragments, metadata, contact paths and JavaScript syntax.`);
