@@ -8,3 +8,6 @@
 @media(forced-colors:active){.atmosphere,#experience-canvas,.experience-fallback{display:none}.primary-link{border:1px solid ButtonText}.index-row,.credibility-strip{border-color:CanvasText}.scene-nav{display:none}}
 .scene-nav a:focus-visible span{opacity:1}
 .experience-controls:not(:has(button:not([hidden]))){display:none}
+/* Leave the right corner free for chat, including on narrow phones. */
+.experience-controls{right:auto;left:max(22px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom))}
+@media(max-width:760px){.experience-controls{left:max(12px,env(safe-area-inset-left));bottom:max(10px,env(safe-area-inset-bottom))}}

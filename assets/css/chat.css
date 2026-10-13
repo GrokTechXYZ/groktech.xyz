@@ -1,0 +1,76 @@
+/* Loaded inside Bubblegram's open shadow root by chat.js. */
+:host {
+  --primary: #355f95 !important;
+  --primary-dark: #244b7d;
+  --primary-light: #e6edf5;
+  --bg: #f7f6f1;
+  --fg: #23343c;
+  --muted: #5c6870;
+  --font: Archivo, Arial, sans-serif;
+}
+.bubble {
+  right: max(22px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  filter: drop-shadow(0 4px 9px #23343c26);
+  touch-action: manipulation;
+}
+.bubble svg { width: 56px; height: 56px; }
+.bubble-icon--logo { transition: transform .25s ease, opacity .18s; }
+.bubble-icon--close { background: #355f95; }
+.bubble-icon--close svg { width: 22px; height: 22px; }
+.grok-chat-label {
+  position: absolute;
+  right: 67px;
+  padding: 11px 15px;
+  border: 1px solid #67798640;
+  border-radius: 14px 14px 3px 14px;
+  background: #f7f6f1;
+  color: #23343c;
+  font: 500 12px/1.4 Archivo, Arial, sans-serif;
+  white-space: nowrap;
+  transition: opacity .18s;
+}
+.bubble.is-open .grok-chat-label { display: none; }
+:host([data-chat-attention]) .bubble:not(.is-open) {
+  outline: 1px solid #875e2977;
+  outline-offset: 7px;
+  filter: drop-shadow(0 4px 12px #875e2933);
+}
+:host([data-chat-attention]) .grok-chat-label { border-color: #875e2977; }
+.messages-empty-title { font-weight: 500; }
+.messages-empty-subtitle { line-height: 1.7; }
+/* The invitation is part of the button, so the whole label is clickable. */
+.greeting { display: none; }
+.panel { bottom: max(86px, calc(env(safe-area-inset-bottom) + 68px)); }
+.panel:not(.open), .lightbox:not(.open) { visibility: hidden; }
+.panel-header-close, .send-btn, .attach-btn { min-width: 44px; min-height: 44px; }
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #875e29;
+  outline-offset: 4px;
+}
+@media (hover: hover) {
+  .bubble:not(.is-open):hover .bubble-icon--logo { transform: translateY(-3px) rotate(-7deg); }
+}
+@media (max-width: 760px) {
+  .bubble { right: max(14px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); }
+  .grok-chat-label { display: none; }
+}
+@media (max-width: 480px) {
+  .panel { bottom: 0; }
+  .bubble.is-open { visibility: hidden; }
+  .panel-header { padding-top: max(12px, env(safe-area-inset-top)); }
+}
+:host([data-motion-paused]) *, :host([data-motion-paused]) *::before, :host([data-motion-paused]) *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (forced-colors: active) {
+  .bubble { background: ButtonFace; border: 1px solid ButtonText; }
+  .grok-chat-label { background: ButtonFace; color: ButtonText; border-color: ButtonText; }
+}

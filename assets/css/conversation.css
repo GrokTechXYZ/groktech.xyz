@@ -1,0 +1,63 @@
+/* A first line connects the site's point of view to a real conversation. */
+.hero-aside { max-width: 520px; }
+.chat-thought { margin-top: 18px; color: var(--ink); font-size: 15px; }
+.chat-thought em { font-size: 22px; color: var(--blue); }
+.hero-actions { flex-direction: row; align-items: center; gap: 23px; margin-top: 13px; }
+.hero-actions .chat-link { flex: none; gap: 23px; }
+.chat-link svg { width: 25px; height: 25px; }
+.conversation-alternatives { display: flex; flex-direction: column; align-items: flex-start; }
+.booking-link { display: inline-flex; align-items: center; gap: 12px; min-height: 32px; font-size: 11px; }
+.booking-link span[aria-hidden] { color: var(--gold); }
+.booking-link:hover { color: var(--gold); }
+.conversation-alternatives .email-options { gap: 4px; min-height: 32px; }
+.chat-route { margin-top: 9px; color: var(--muted); font-size: 10px; }
+.hero { min-height: 880px; }
+.contact { height: auto; min-height: max(850px, 100svh); max-height: none; padding-bottom: 110px; }
+.contact-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .8fr); gap: clamp(42px, 7vw, 110px); align-items: center; margin-block: auto; padding-top: 75px; padding-bottom: 35px; }
+.contact-content { margin: 0; max-width: none; }
+.contact h2 { font-size: clamp(68px, 8.1vw, 142px); }
+.contact-actions .text-link { margin-top: 0; }
+.conversation-note { position: relative; padding: 33px 30px 27px; border: 1px solid #74899740; border-radius: 4px 32px 4px 4px; background: #f7f6f1ed; box-shadow: 0 18px 48px #3148580c; }
+.conversation-note::before { content: ''; position: absolute; top: -1px; left: 30px; width: 48px; height: 2px; background: var(--gold); }
+.conversation-address { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--gold); }
+.conversation-address .eyebrow { font-size: 9px; }
+.conversation-connection { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 9px; }
+.conversation-connection i { position: relative; width: 31px; height: 1px; background: #875e2966; }
+.conversation-connection i::before, .conversation-connection i::after { content: ''; position: absolute; top: -2px; width: 5px; height: 5px; border: 1px solid var(--gold); border-radius: 50%; background: var(--paper); }
+.conversation-connection i::before { left: 0; }
+.conversation-connection i::after { right: 0; background: var(--gold); }
+.conversation-note h3 { margin-top: 35px; font-size: clamp(31px, 3vw, 46px); font-weight: 400; letter-spacing: -.045em; line-height: 1.12; }
+.conversation-note h3 em { color: var(--blue); font-size: 1.25em; }
+.conversation-note > p:not(.conversation-footnote) { margin-top: 24px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.conversation-invite { display: flex; align-items: center; min-height: 90px; margin-top: 23px; gap: 9px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.invitation-copy { flex: 1; }
+.invitation-copy strong { display: block; color: var(--blue); font-size: 12px; font-weight: 500; }
+.invitation-copy > span { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; }
+.invitation-arrow { width: 52px; height: 42px; flex: none; color: var(--gold); transition: transform .35s var(--ease); }
+.invitation-smile { width: 48px; height: 48px; flex: none; transition: transform .35s var(--ease); }
+.conversation-invite:hover .invitation-arrow, .conversation-invite:focus-visible .invitation-arrow { transform: translate(3px, 2px); }
+.conversation-invite:hover .invitation-smile, .conversation-invite:focus-visible .invitation-smile { transform: rotate(-7deg); }
+.conversation-footnote { margin-top: 19px; color: var(--muted); font-size: 10px; line-height: 1.75; }
+.conversation-footnote [data-chat-corner] { display: block; margin-bottom: 8px; }
+@media(min-width:1600px) { .hero-aside { max-width: 650px; } .hero-actions { max-width: 520px; } }
+@media(max-height:800px) and (min-width:901px) { .hero { min-height: 820px; } .hero-aside { margin-top: 20px; } .chat-thought { margin-top: 12px; } }
+@media(max-width:1000px) and (min-width:761px) { .contact-layout { gap: 32px; grid-template-columns: minmax(0, 1fr) minmax(280px, .9fr); } .contact h2 { font-size: 7.7vw; } .conversation-note { padding-inline: 23px; } }
+@media(max-width:760px) {
+  .hero { min-height: 880px; }
+  .hero-aside { margin-top: 33px; }
+  .hero-actions { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .hero-actions .chat-link { min-height: 50px; }
+  .conversation-alternatives { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 0 15px; }
+  .booking-link { font-size: 10px; min-height: 36px; gap: 6px; }
+  .conversation-alternatives .email { font-size: 10px; }
+  .chat-route { margin-top: 5px; font-size: 9px; }
+  .contact { padding-top: 95px; padding-bottom: 110px; min-height: 100svh; }
+  .contact-layout { display: flex; flex-direction: column; align-items: stretch; gap: 55px; padding-top: 75px; padding-bottom: 0; }
+  .contact h2 { font-size: clamp(62px, 14vw, 105px); }
+  .conversation-note { padding: 28px 25px; max-width: 480px; width: 100%; }
+  .conversation-note h3 { font-size: 36px; margin-top: 27px; }
+  .conversation-note > p:not(.conversation-footnote) { margin-top: 20px; }
+  .invitation-arrow { width: 45px; }
+}
+@media(max-width:360px) { .hero { min-height: 910px; } .hero-actions { gap: 8px; } .conversation-alternatives { gap: 0 12px; } .conversation-note { padding-inline: 20px; } .conversation-note h3 { font-size: 32px; } .invitation-arrow { width: 30px; } .invitation-smile { width: 43px; height: 43px; } }
+@media(forced-colors:active) { .conversation-note, .conversation-invite { border-color: CanvasText; } }

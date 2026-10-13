@@ -28,8 +28,18 @@ The proof line retains owner-confirmed 21 years in IT, historical 99.99% uptime 
 
 Tezos Systems was built for the community. Its image shows the Valley theme with resolved data. Tez Capital is a collaboration between Berry Studio and GrokTech, building and maintaining TezBake, TezPay, TezGov, TezWatch and TezSign, with documentation, support and communications since 2021. Public project images are snapshots, not live dashboards.
 
-Primary contact is https://calendly.com/groktech. The fallback is the plain email link contact@groktech.xyz. Both appear in the opening and at the end. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
+The opening connects “I look between the lines” to “You can start with one line.” Chat is the immediate invitation; booking at https://calendly.com/groktech and email at contact@groktech.xyz remain visible alternatives in the opening and at the end. The closing note, “The next line is yours,” points to the same smiling launcher. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
 
 ## Verification
 
-Buildless HTML, CSS and JavaScript. No external runtime dependencies. After asset edits run `node scripts/version-assets.mjs`, then `node scripts/check.mjs`. Review all five scenes at desktop and phone sizes, shorter laptop viewports, keyboard, service hash links, clipboard, sound opt-in and cleanup, motion pause, live reduced-motion changes, canvas failure and no JavaScript. Verify served HTML and asset bytes over the tailnet before handoff.
+Buildless HTML, CSS and JavaScript. Bubblegram is the only external script; the page and existing contact links work independently of it. After asset edits run `node scripts/version-assets.mjs`, then `node scripts/check.mjs`. Review all five scenes at desktop and phone sizes, shorter laptop viewports, keyboard, service hash links, clipboard, sound opt-in and cleanup, motion pause, live reduced-motion changes, canvas failure and no JavaScript. Verify served HTML and asset bytes over the tailnet before handoff.
+
+## Live chat
+
+`index.html` loads Bubblegram's async CDN script immediately before `</body>`, with the project's public key inline. There is no package, component, build step or private credential. Telegram routing and availability messages are managed in Bubblegram. The install guide is https://bubblegram.co/docs/embed-widget.md.
+
+`assets/js/chat.js` progressively enhances the native launcher with a smiling speech bubble, a desktop invitation, keyboard state and Escape dismissal. `assets/css/chat.css` is preloaded and added to the widget's open shadow root, matching the site palette and respecting reduced motion and the site's pause control. The native click handler and unread badge are preserved. These enhancements depend on the vendor's current DOM selectors and open/closed state classes. Missing required elements skip enhancement and preserve the standard widget; state-class changes still require an integration update. Recheck after upstream widget changes. Sound and motion controls sit bottom-left to leave chat bottom-right.
+
+Before release, check the launcher after reload, open/close and keyboard focus, desktop and phone layouts, and delivery to/from the linked Telegram group. Loading the launcher alone does not verify Telegram delivery. Attachment availability depends on the Bubblegram plan.
+
+The hero, practice invitation and closing note use `data-chat-open` links. When the widget is available they call the documented `Bubblegram.open()` method; they remain ordinary email links otherwise. Hover or keyboard focus quietly outlines the fixed launcher, and closing chat returns focus to the invitation used. The empty chat panel carries the same first-person welcome. `assets/css/conversation.css` styles these page invitations, and `assets/chat-smile.svg` echoes the native launcher's face without adding a second floating control.

@@ -67,7 +67,7 @@ for (const match of css.matchAll(/url\((?:"([^"]*)"|'([^']*)'|([^\s)]*))\)/g)) {
 }
 assert((await readFile(resolve(root, 'CNAME'), 'utf8')).trim() === 'groktech.xyz', 'Custom domain changed');
 assert((await readFile(resolve(root, 'sitemap.xml'), 'utf8')).includes('<loc>https://groktech.xyz/</loc>'), 'Homepage missing from sitemap');
-for (const file of ['assets/js/site.js', 'assets/js/experience.js', 'assets/js/sound.js']) {
+for (const file of ['assets/js/site.js', 'assets/js/experience.js', 'assets/js/sound.js', 'assets/js/chat.js']) {
   const syntax = spawnSync(process.execPath, ['--check', resolve(root, file)], { encoding: 'utf8' });
   assert(syntax.status === 0, syntax.stderr || `${file}: JavaScript syntax check failed`);
 }
