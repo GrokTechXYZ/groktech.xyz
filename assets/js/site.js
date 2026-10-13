@@ -96,7 +96,7 @@
       const el = entry.target;
       observer.unobserve(el);
       if (el.matches('.project-preview')) {
-        animate(el, [{ clipPath: 'inset(0 0 18% 0)', transform: 'translateY(32px)', opacity: .35 }, { clipPath: 'inset(0)', transform: 'none', opacity: 1 }], { duration: 1250 });
+        animate(el, [{ clipPath: 'inset(10% 8% round 48px)', transform: 'perspective(1400px) rotateY(-5deg) scale(.95)', opacity: .75 }, { clipPath: 'inset(0 round 0)', transform: 'none', opacity: 1 }], { duration: 1450 });
       } else {
         animate(el, [{ opacity: .18, transform: 'translateY(22px)' }, { opacity: 1, transform: 'none' }], { duration: 1000 });
       }

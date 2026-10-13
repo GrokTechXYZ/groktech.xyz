@@ -1,20 +1,22 @@
-# GrokTech / Perspective
+# GrokTech / Parallax
 
 A continuous spatial experience for an independent, hands-on technologist. The page connects perception, complete IT systems, public contributions and a direct invitation. GrokTech is the public identity. No personal aliases, employment chronology or life story.
 
 ## Design
 
-Luminous ivory, deep slate lettering, champagne gold and clear blue. The light canvas keeps the atmosphere open while the sculpture uses translucent color and pearl highlights for depth. Self-hosted Archivo and Instrument Serif. The original GrokTech wordmark uses inline SVG and currentColor for legibility. An original folded light sculpture changes shape and framing across five scenes. The Golden Braid and The OA informed the connection, wholeness and atmosphere, not literal imagery or story references.
+Parallax shows how a change of perspective makes relationships visible. Three translucent architectural apertures hold fine engraved contours. The opening presents them obliquely, as separate depths. Each depth contains only one third of an engraved frame and a separate fragment of a signal. At Perception the camera squares to the work, the engravings complete the frame and the separated signal endpoints align into one unbroken route. Practice separates the same planes into a working stack. At Work the same aperture widens to the measured bounds of each real project window, trading abstraction for evidence. It then reopens as a warm frame beside the invitation.
 
-The same object guides the journey. Native scrolling stays in charge. Content and direct contact remain available immediately, without an entry gate. The canvas responds to scroll and fine-pointer movement, then settles. An engraved static fallback remains when JavaScript or canvas is unavailable. OS reduced motion and a persistent manual pause stop the decorative movement.
+Transitions have explicit thresholds near section boundaries. Long reading sections hold a composed state. A single object carries across every scene rather than replacing one decorative effect with another. The same rounded aperture opens into the actual project previews. Focusing or hovering a service softly emphasizes its corresponding hardware, network or software plane. Native scrolling controls the camera. Fine-pointer movement introduces a slight change of viewpoint, then all drawing stops when settled. No scroll capture, timeline, autoplay loop or required interaction.
 
-Sound is optional and always off on load. A deliberate click enables original, quiet synthesized chords that briefly respond to scene changes. No recordings, autoplay, continuous hum or audio tracking. Leaving the tab silences it; switching sound off closes the audio context.
+The bright ivory, slate, blue and champagne palette, typography and business details stay consistent with the published site. The canvas stays beneath readable content. A matching SVG aperture remains when JavaScript or canvas is unavailable. A persistent manual pause and OS reduced motion replace the moving canvas with a quiet static engraving, so a project-bound frame cannot remain over unrelated copy. Re-enabling motion refreshes layout measurements before revealing the canvas. Resizing and disclosures also refresh section measurements.
+
+Sound remains optional and off on load. The existing original synthesized chords are enabled only by an explicit click and stop when the tab is hidden. The artwork does not require sound.
 
 ## Deployment and preview
 
 GitHub Pages serves this buildless site from the repository root on `main`, with the custom domain `groktech.xyz` and HTTPS enforced.
 
-For local review run `node scripts/preview.mjs . 4192`. Private cross-device previews use Tailscale Serve to forward HTTPS to this loopback server. Keep host-specific preview addresses in local task notes. Earlier designs remain available in the local concept branches.
+For local review run `node scripts/preview.mjs . 4197`. Private cross-device previews use Tailscale Serve to forward HTTPS to this loopback server. Keep host-specific preview addresses in local task notes. The selected Parallax experience is published from the main branch through GitHub Pages.
 
 After a release, verify the GitHub Pages deployment for the exact commit, compare served assets with the source, and check the live desktop and phone layouts.
 

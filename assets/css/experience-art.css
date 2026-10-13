@@ -17,10 +17,30 @@
   opacity:0;
 }
 .motion-paused #experience-canvas {
+  opacity:0;
+  transition:none;
+}
+.motion-paused .experience-fallback {
+  opacity:.45;
   transition:none;
 }
 @media(prefers-reduced-motion:reduce) {
-  #experience-canvas {
+  #experience-canvas, .experience-ready #experience-canvas {
+    opacity:0;
     transition:none;
   }
+  .experience-fallback, .experience-ready .experience-fallback {
+    opacity:.45;
+    transition:none;
+  }
+}
+/* PARALLAX: a quiet optical window, held in relation to the copy. */
+.sculpture-caption { top:80%;right:10%;font-size:10px;max-width:230px;line-height:1.7; }
+.perception-notes { gap:44px;right:10%;bottom:16%; }
+.perception-notes p { min-width:58px; }
+.perception-notes p+ p { padding-left:24px;border-left:1px solid #67798626; }
+.project-preview { border-color:#74899745;box-shadow:0 24px 64px #31485816; }
+@media (max-width:760px) {
+  .perception-notes { left:var(--gutter);right:var(--gutter);bottom:9%;gap:18px; }
+  .perception-notes p+ p { padding-left:18px; }
 }
