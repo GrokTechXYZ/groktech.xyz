@@ -28,7 +28,7 @@ The proof line retains owner-confirmed 21 years in IT, historical 99.99% uptime 
 
 Tezos Systems was built for the community. Its image shows the Valley theme with resolved data. Tez Capital is a collaboration between Berry Studio and GrokTech, building and maintaining TezBake, TezPay, TezGov, TezWatch and TezSign, with documentation, support and communications since 2021. Public project images are snapshots, not live dashboards.
 
-Primary contact is https://calendly.com/groktech. The fallback is the plain email link groktechllc@gmail.com. Both appear in the opening and at the end. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
+Primary contact is https://calendly.com/groktech. The fallback is the plain email link contact@groktech.xyz. Both appear in the opening and at the end. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
 
 ## Verification
 

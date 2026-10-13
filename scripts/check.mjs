@@ -37,7 +37,7 @@ for (const name of ['index.html', '404.html', 'scripts/social-card.html']) {
   }
   if (name === 'index.html') {
     assert(/href="https:\/\/calendly\.com\/groktech"/.test(html), 'Booking destination missing');
-    assert(/href="mailto:groktechllc@gmail\.com"/.test(html), 'Email destination missing');
+    assert(/href="mailto:contact@groktech\.xyz"/.test(html), 'Email destination missing');
     assert(/rel="canonical" href="https:\/\/groktech\.xyz\/"/.test(html), 'Canonical URL missing');
     for (const service of ['people', 'programming', 'automation', 'operations', 'networking', 'infrastructure', 'cloud']) {
       assert(ids.includes(`service-${service}`), `Missing service: ${service}`);
@@ -48,7 +48,7 @@ for (const name of ['index.html', '404.html', 'scripts/social-card.html']) {
     });
     const business = entities.find(entity => entity['@type'] === 'Organization');
     assert(business?.legalName === 'GrokTech LLC' && business?.foundingDate === '2021', 'Business identity or founding year missing');
-    assert(business?.email === 'groktechllc@gmail.com', 'Business email is stale');
+    assert(business?.email === 'contact@groktech.xyz', 'Business email is stale');
     assert(business?.name === 'GrokTech', 'Public business identity is missing');
   }
 }
