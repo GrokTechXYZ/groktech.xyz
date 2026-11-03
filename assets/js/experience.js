@@ -283,13 +283,22 @@
     if(records.some(record=>(' '+(record.oldValue||'')+' ').includes(' motion-paused ')!==paused))motion();
   }).observe(root,{attributes:true,attributeFilter:['class'],attributeOldValue:true});
   const rows = [...document.querySelectorAll('.index-row')];
-  // Racks, networks and code each light their own plane. Operations and people span the whole stack.
-  const layers = [[0],[1],[2],[2],[0,1,2],[0,1,2],[2]];
+  // Match the service itself so reordering the offer keeps its highlighted planes correct.
+  const layers = {
+    'service-ai': [0,1,2],
+    'service-infrastructure': [0],
+    'service-networking': [1],
+    'service-programming': [2],
+    'service-automation': [2],
+    'service-operations': [0,1,2],
+    'service-people': [0,1,2],
+    'service-cloud': [0,1,2]
+  };
   const selectLayers = list => { if(!canMove())return;selectedLayers=list||[];request(); };
-  rows.forEach((row,index)=>{
-    row.addEventListener('pointerenter',event=>{if(fine.matches&&event.pointerType!=='touch')selectLayers(layers[index]);});
+  rows.forEach(row=>{
+    row.addEventListener('pointerenter',event=>{if(fine.matches&&event.pointerType!=='touch')selectLayers(layers[row.id]);});
     row.addEventListener('pointerleave',()=>{if(!row.contains(document.activeElement))selectLayers([]);});
-    row.addEventListener('focusin',()=>selectLayers(layers[index]));
+    row.addEventListener('focusin',()=>selectLayers(layers[row.id]));
     row.addEventListener('focusout',event=>{if(!row.contains(event.relatedTarget))selectLayers([]);});
   });
   window.grokExperience={refresh:resize};

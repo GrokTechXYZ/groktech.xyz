@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://groktech.xyz/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://groktech.xyz/longwood-it-consulting/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://groktech.xyz/services/it-infrastructure/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://groktech.xyz/services/software-integrations/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://groktech.xyz/services/business-automation/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://groktech.xyz/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://groktech.xyz/longwood-it-consulting/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://groktech.xyz/services/it-infrastructure/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://groktech.xyz/services/software-integrations/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://groktech.xyz/services/business-automation/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://groktech.xyz/services/sovereign-ai/</loc><lastmod>2026-11-03</lastmod></url>
 </urlset>

@@ -1,12 +1,12 @@
 # GrokTech / Parallax
 
-A continuous spatial experience for an independent, hands-on technologist. The page connects perception, complete IT systems, public contributions and a direct invitation. GrokTech is the public identity. No personal aliases, employment chronology or life story.
+A continuous spatial experience for an independent, hands-on technologist. The primary offer is sovereign AI: customer-owned compute installed on-premises or hosted in the owner's data center, fixed-price setup and user training, and optional monthly support and security maintenance. The page connects that offer to a whole-system perspective, broader IT services, public contributions and a direct invitation. GrokTech is the public identity. No personal aliases, employment chronology or life story.
 
 ## Design
 
 Parallax shows how a change of perspective makes relationships visible. Three translucent architectural apertures hold fine engraved contours. The opening presents them obliquely, as separate depths. Each depth contains only one third of an engraved frame and a separate fragment of a signal. At Perception the camera squares to the work, the engravings complete the frame and the separated signal endpoints align into one unbroken route. Practice separates the same planes into a working stack. At Work the same aperture widens to the measured bounds of each real project window, trading abstraction for evidence. It then reopens as a warm frame beside the invitation.
 
-When the planes align at Perception, the grok definition (1961 Heinlein, 2021 GrokTech) resolves under the copy and stays. Without the canvas, paused motion or reduced motion, it is plain visible text. In the Practice stack the planes carry real-text labels (hardware, network, software) when they fit beside the service list; IT operations and People & systems light all three.
+When the planes align at Perception, the grok definition (1961 Heinlein, 2021 GrokTech) resolves under the copy and stays. Without the canvas, paused motion or reduced motion, it is plain visible text. In the Practice stack the planes carry real-text labels (hardware, network, software) when they fit beside the service list; sovereign AI, deployment, training and ongoing care light all three. The service-to-layer mapping uses stable IDs so changes in order preserve the intended emphasis.
 
 Transitions have explicit thresholds near section boundaries. Long reading sections hold a composed state. A single object carries across every scene rather than replacing one decorative effect with another. The same rounded aperture opens into the actual project previews. Focusing or hovering a service softly emphasizes its corresponding hardware, network or software plane. Native scrolling controls the camera. Fine-pointer movement introduces a slight change of viewpoint, then all drawing stops when settled. No scroll capture, timeline, autoplay loop or required interaction.
 
@@ -32,7 +32,11 @@ The proof line retains owner-confirmed 21 years in IT, historical 99.99% uptime 
 
 Tezos Systems was built for the community. Its image shows the Valley theme with resolved data. Tez Capital is a collaboration between Berry Studio and GrokTech, building and maintaining TezBake, TezPay, TezGov, TezWatch and TezSign, with documentation, support and communications since 2021. Public project images are snapshots, not live dashboards.
 
-The opening connects “I look between the lines” to “You can start with one line.” Chat is the immediate invitation; booking at https://calendly.com/groktech and email at contact@groktech.xyz remain visible alternatives in the opening and at the end. The closing note, “The next line is yours,” points to the same smiling launcher. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
+The opening leads with “Your AI. Your hardware.” and “Someone local to call.” Its main link opens the sovereign AI service page; booking at https://calendly.com/groktech and email at contact@groktech.xyz remain visible alternatives in the opening and at the end. The closing note, “The next line is yours,” points to the same smiling launcher. Optional clipboard controls announce success or select the email when automatic copy fails. Service details remain native, keyboard-accessible disclosures with direct hash links.
+
+Hardware is quoted separately from the fixed project fee for installation and user training. Hosting has its own recurring infrastructure and maintenance charge, independent of optional user support. Monthly support and a higher-tier SLA are scoped and priced by agreement. Do not invent published prices, coverage hours, response targets, resolution guarantees or future uptime commitments. Distinguish a response from a resolution and user training from model fine-tuning. Describe sovereignty through equipment ownership, data locations, administration, approved external services, export and exit arrangements, without claiming universal offline operation or absolute security.
+
+The social preview is `assets/og-sovereign-ai.jpg`, rendered at 1200 by 630 from `assets/og-sovereign-ai.svg`. The vector source outlines the existing Archivo and Instrument Serif fonts; `scripts/social-card.html` displays that source for inspection. Keep the artwork wording aligned with the main offer.
 
 ## Verification
 
@@ -46,13 +50,14 @@ Buildless HTML, CSS and JavaScript. Bubblegram is the only external script; the 
 
 Before release, check the launcher after reload, open/close and keyboard focus, desktop and phone layouts, and delivery to/from the linked Telegram group. Loading the launcher alone does not verify Telegram delivery. Attachment availability depends on the Bubblegram plan.
 
-The hero, practice invitation and closing note use `data-chat-open` links. When the widget is available they call the documented `Bubblegram.open()` method; they remain ordinary email links otherwise. Hover or keyboard focus quietly outlines the fixed launcher, and closing chat returns focus to the invitation used. The empty chat panel carries the same first-person welcome. `assets/css/conversation.css` styles these page invitations, and `assets/chat-smile.svg` echoes the native launcher's face without adding a second floating control.
+The practice invitation, closing note and service-page invitations use `data-chat-open` links. When the widget is available they call the documented `Bubblegram.open()` method; they remain ordinary email links otherwise. Hover or keyboard focus quietly outlines the fixed launcher, and closing chat returns focus to the invitation used. The empty chat panel carries the same first-person welcome. `assets/css/conversation.css` styles these page invitations, and `assets/chat-smile.svg` echoes the native launcher's face without adding a second floating control.
 
 ## Local search pages
 
-The homepage links to four static pages, all editable directly without a build:
+The homepage and service navigation connect five static pages, all editable directly without a build:
 
-- `/longwood-it-consulting/`: local service overview, audiences, engagement process and practical questions.
+- `/services/sovereign-ai/`: hardware ownership, on-premises and hosted deployment, fixed-price setup and user training, optional monthly care, individually agreed SLA terms, data control and handover.
+- `/longwood-it-consulting/`: private AI and broader IT services for local audiences, the engagement process and practical questions.
 - `/services/it-infrastructure/`: hardware, servers, networking, virtualization, failover and operations.
 - `/services/software-integrations/`: custom software, APIs, internal tools and public project evidence.
 - `/services/business-automation/`: connected workflows, data handoffs and operational automation.
@@ -69,7 +74,7 @@ The site changes are the website portion of local discovery. Google account owne
 
 1. **Claim an existing Google Business Profile, or create one if none exists.** Search for GrokTech first to avoid duplicates. Use the Google account you intend to retain as the owner. Keep the real business name, GrokTech; do not append search keywords or a city to the business name. Start at <https://business.google.com/>.
 2. **Use the correct business model.** Google requires in-person contact with customers. If you visit clients and do not receive customers at your base, use a service-area profile with Longwood as a genuine service area and keep the base address off the public listing. Give Google the real address for verification when requested. Remote-only businesses are not eligible. Do not claim a Longwood storefront unless one actually exists. Follow the verification method Google offers; the owner may need to complete a video or other verification personally.
-3. **Complete the profile.** Select the closest available primary category for the work you most want to be hired for; consider Computer consultant if Google offers it and it accurately fits. Add only relevant secondary categories. Include IT infrastructure, networking, server installation, software integrations and business automation in Services. Add a business phone if you have one, accurate contact hours, a logo and genuine work photos you are allowed to share. Use `https://groktech.xyz/longwood-it-consulting/` as the website once published. Link `https://calendly.com/groktech` if an appointment field is available.
+3. **Complete the profile.** Select the closest available primary category for the work you most want to be hired for; consider Computer consultant if Google offers it and it accurately fits. Add only relevant secondary categories. Include private AI installation, user training and ongoing support alongside IT infrastructure, networking, server installation, software integrations and business automation in Services. Add a business phone if you have one, accurate contact hours, a logo and genuine work photos you are allowed to share. Use `https://groktech.xyz/longwood-it-consulting/` as the website once published. Link `https://calendly.com/groktech` if an appointment field is available.
 4. **Verify Search Console.** At <https://search.google.com/search-console/>, add the Domain property `groktech.xyz` and add the exact TXT record Google provides at your DNS provider. If you prefer not to change DNS, a URL-prefix property for `https://groktech.xyz/` can use one of Google's offered verification methods. Verification tokens must come from your account; none have been invented or embedded in this repository.
 5. **Submit and inspect.** Submit `https://groktech.xyz/sitemap.xml` in Search Console. Use URL Inspection on the homepage and each new page; check the live test, rendered content and selected canonical, and request indexing after publication. Submission does not guarantee indexing or ranking.
 6. **Ask clients for honest reviews.** Use the review link from your verified Business Profile after completed work. Ask consistently, without incentives or filtering requests to only positive experiences. Reply professionally. Add real case studies to the site as approved details become available.
@@ -77,7 +82,7 @@ The site changes are the website portion of local discovery. Google account owne
 
 Suggested Business Profile description, to review and paste after eligibility and verification are established:
 
-> GrokTech provides independent, hands-on technology consulting for individuals, businesses and corporate teams in Longwood and Central Florida. Based in Wekiwa Springs, I work across IT infrastructure, servers, networking, virtualization, custom software, API integrations and business automation. From an isolated technical problem to a connected system, you work directly with the person doing the work.
+> GrokTech provides private AI installation, training and support for individuals, businesses and corporate teams in Longwood and Central Florida. Based in Wekiwa Springs, I source customer-owned hardware, install it on-premises or host it in my data center, and teach you how to use it. Setup and training have a fixed project price; hardware, hosting and optional monthly care are quoted separately. I also work across infrastructure, software integrations and automation. You work directly with the person doing the work.
 
 Official guidance checked October 13, 2026:
 

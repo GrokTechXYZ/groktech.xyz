@@ -16,7 +16,11 @@
 .service-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px 26px; margin-top: 32px; }
 .service-actions .text-link { margin: 0; gap: 20px; }
 .service-actions .primary-link { gap: 30px; }
+.service-topics { display: flex; flex-wrap: wrap; gap: 4px 26px; margin-top: 34px; }
+.service-topics a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.service-topics a:hover { color: var(--gold); }
 .service-section { border-top: 1px solid var(--line); padding-block: 70px; }
+.service-section[id] { scroll-margin-top: 100px; }
 .section-heading h2, .service-contact h2 { font-size: clamp(42px, 4.5vw, 66px); line-height: 1.08; }
 .section-heading > p:not(.eyebrow) { max-width: 410px; font-size: 16px; margin-top: 25px; color: var(--muted); }
 .split-section { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 9%; }
@@ -30,6 +34,7 @@
 .service-copy li { padding-left: 5px; margin-block: 8px; }
 .service-copy .text-link { margin-block: 12px 25px; }
 .service-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 45px; }
+.service-cards-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .service-card { display: flex; flex-direction: column; align-items: flex-start; border: 1px solid var(--line); padding: 32px 26px; background: #fff5; transition: border-color .25s; }
 .service-card:hover { border-color: var(--gold); }
 .service-card .eyebrow { color: var(--gold); font-size: 11px; }
