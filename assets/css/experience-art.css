@@ -35,12 +35,28 @@
   }
 }
 /* PARALLAX: a quiet optical window, held in relation to the copy. */
-.sculpture-caption { top:80%;right:10%;font-size:10px;max-width:230px;line-height:1.7; }
+.sculpture-caption { top:80%;right:10%;font-size:12px;max-width:270px;line-height:1.7; }
 .perception-notes { gap:44px;right:10%;bottom:16%; }
 .perception-notes p { min-width:58px; }
 .perception-notes p+ p { padding-left:24px;border-left:1px solid #67798626; }
 .project-preview { border-color:#74899745;box-shadow:0 24px 64px #31485816; }
-@media (max-width:760px) {
-  .perception-notes { left:var(--gutter);right:var(--gutter);bottom:9%;gap:18px; }
-  .perception-notes p+ p { padding-left:18px; }
+/* grok resolves with the planes. Once seen, it stays. */
+@media (prefers-reduced-motion:no-preference) {
+  .grok-entry, .grok-entry::before, .grok-entry > * { transition:opacity .8s var(--ease), transform 1.1s var(--ease), border-color .8s; }
+  .grok-entry > :nth-child(2) { transition-delay:.1s; }
+  .grok-entry > :nth-child(3) { transition-delay:.2s; }
+  .experience-ready:not(.motion-paused):not(.experience-whole) .grok-entry { border-top-color:transparent; }
+  .experience-ready:not(.motion-paused):not(.experience-whole) .grok-entry::before { transform:scaleX(0); }
+  .experience-ready:not(.motion-paused):not(.experience-whole) .grok-entry > * { opacity:0; }
+  .experience-ready:not(.motion-paused):not(.experience-whole) .grok-entry > dt { transform:translateX(-14px); }
+  .experience-ready:not(.motion-paused):not(.experience-whole) .grok-entry > .grok-history { transform:translateX(14px); }
 }
+/* The working stack names its layers. Real text, so it stays crisp above the section's wash. */
+.layer-labels { position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+.layer-labels span { position:absolute; top:0; left:0; font:italic 16px/1 Instrument, Georgia, serif; white-space:nowrap; opacity:0; }
+.layer-labels span::before { content:''; position:absolute; top:55%; right:calc(100% + 5px); width:10px; height:1px; background:currentColor; opacity:.5; }
+.layer-labels span:nth-child(1) { color:#875e29; }
+.layer-labels span:nth-child(2) { color:#4f6672; }
+.layer-labels span:nth-child(3) { color:#355f95; }
+.motion-paused .layer-labels { display:none; }
+@media (prefers-reduced-motion:reduce), (forced-colors:active), (max-width:760px) { .layer-labels { display:none; } }

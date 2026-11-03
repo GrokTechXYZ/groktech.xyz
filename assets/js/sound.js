@@ -4,6 +4,7 @@
   const button = document.querySelector('[data-sound-toggle]');
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   if (!button || typeof AudioContext !== 'function') return;
+  const label = button.querySelector('[data-sound-label]') || button;
 
   const root = document.documentElement;
   const chords = {
@@ -33,7 +34,7 @@
   let endTimer = 0;
 
   const updateButton = () => {
-    button.textContent = enabled ? 'Sound on' : 'Sound off';
+    label.textContent = enabled ? 'Sound on' : 'Sound off';
     button.setAttribute('aria-pressed', String(enabled));
     button.title = enabled ? 'Turn scene sound off' : 'Turn on quiet scene chords';
   };

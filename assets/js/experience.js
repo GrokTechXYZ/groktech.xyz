@@ -11,6 +11,8 @@
   const mix = (a, b, t) => a + (b - a) * t;
   const ease = t => t * t * (3 - 2 * t);
   const colors = [[154, 116, 58], [111, 140, 151], [51, 94, 148]];
+  // The three planes are the layers of the practice: hardware, network, software. In the working stack they say so.
+  const layerTags = [...document.querySelectorAll('.layer-labels span')];
   const poses = [
     { x:.785, y:.48, size:.37, rx:.11, ry:-.67, rz:.07, depth:.85, opening:.13, spread:0, opacity:1, warmth:0 },
     { x:.735, y:.51, size:.255, rx:0, ry:0, rz:0, depth:0, opening:1, spread:0, opacity:1, warmth:0 },
@@ -29,7 +31,7 @@
   let intro = !reduced.matches && !root.classList.contains('motion-paused') && scrollY < 50 && !location.hash ? 0 : 1;
   const pointer = { x:0, y:0, tx:0, ty:0 };
   const emphasis = [0,0,0];
-  let selectedLayer = -1;
+  let selectedLayers = [], whole = false, labelLimit = Infinity, labelsFit = false, tagWidths = [0,0,0], perceptionRoom = null;
   const canMove = () => !document.hidden && !reduced.matches && !root.classList.contains('motion-paused');
   const rgba = (color, alpha) => `rgba(${color.join(',')},${alpha})`;
   const tint = i => colors[i].map((value, channel) => Math.round(mix(value, colors[0][channel], current.warmth)));
@@ -37,6 +39,12 @@
   function poseAt(index) {
     const pose = {...poses[index]};
     if (mobile) [pose.x, pose.y, pose.size, pose.opacity] = phone[index];
+    if (index === 1 && mobile && perceptionRoom) {
+      // On phones the aligned frame takes the space between the definition and the closing line.
+      const [top, bottom] = perceptionRoom;
+      pose.y = (top + bottom) / 2 / height;
+      pose.size = Math.min(pose.size, Math.max(0, bottom - top - 24) / 2.06 / height);
+    }
     if (index === 3 && projectWindows.length) {
       const boxes=projectWindows.map(el=>el.getBoundingClientRect());
       const box=boxes.reduce((best,rect)=>Math.abs(rect.top+rect.height*.5-height*.55)<Math.abs(best.top+best.height*.5-height*.55)?rect:best);
@@ -53,6 +61,17 @@
       const el = document.querySelector(`section[data-scene="${name}"]`);
       return Math.max(0, el.getBoundingClientRect().top + scrollY);
     });
+    const list = document.querySelector('.practice-right');
+    labelLimit = list ? list.getBoundingClientRect().left : Infinity;
+    tagWidths = layerTags.map(tag => tag.offsetWidth);
+    const stage = document.querySelector('.perception-stage');
+    const entry = document.querySelector('.grok-entry');
+    const line = document.querySelector('.perception-line');
+    if (stage && entry && line) {
+      // Measured inside the sticky stage, so the values hold while it is pinned.
+      const top = stage.getBoundingClientRect().top;
+      perceptionRoom = [entry.getBoundingClientRect().bottom - top, line.getBoundingClientRect().top - top];
+    }
   }
   function readTarget() {
     // The camera holds each scene. It changes frames only while crossing a boundary.
@@ -174,6 +193,24 @@
       ctx.setLineDash([]);
     }
   }
+  function paintLabels() {
+    // Names for the working stack, set as real text above the section's wash.
+    // They give way where the service list begins.
+    const ends = !mobile && current.spread >= .02 ? [0,1,2].map(layer => contour(0,1,layer)) : null;
+    if (ends) {
+      const reach = Math.max(...ends.map((p, layer) => p.x + 16 + tagWidths[layer]));
+      // Pointer parallax shifts the planes a few pixels. The margin differs by state so labels never flicker.
+      labelsFit = reach - labelLimit < (labelsFit ? -2 : -18);
+    } else labelsFit = false;
+    layerTags.forEach((tag, layer) => {
+      const alpha = labelsFit ? current.spread * (.7 + emphasis[layer]*.3) : 0;
+      tag.style.opacity = alpha.toFixed(3);
+      if (!alpha) return;
+      const p = ends[layer];
+      tag.style.transform = `translate(${(p.x+16).toFixed(1)}px,${p.y.toFixed(1)}px) translateY(-50%)`;
+      ctx.beginPath();ctx.arc(p.x,p.y,2.2,0,Math.PI*2);ctx.fillStyle=rgba(tint(layer),alpha);ctx.fill();
+    });
+  }
 
   function paint() {
     ctx.clearRect(0,0,width,height);
@@ -188,10 +225,13 @@
     if(!mobile || current.y < .58) {
       ctx.globalCompositeOperation='destination-out';ctx.fillStyle=fade;ctx.fillRect(0,0,width,height);ctx.globalCompositeOperation='source-over';
     }
+    paintLabels();
     const headerFade = ctx.createLinearGradient(0,0,0,mobile?100:145);
     headerFade.addColorStop(0,'rgba(0,0,0,.88)');headerFade.addColorStop(1,'rgba(0,0,0,0)');
     ctx.globalCompositeOperation='destination-out';ctx.fillStyle=headerFade;ctx.fillRect(0,0,width,mobile?100:145);ctx.globalCompositeOperation='source-over';
     if(!painted){painted=true;root.classList.add('experience-ready');}
+    // The planes coincide only at Perception. The word they make stays once it has been seen.
+    if(!whole&&current.depth<.03){whole=true;root.classList.add('experience-whole');}
   }
   function settle() {
     if(frame) cancelAnimationFrame(frame);
@@ -208,7 +248,7 @@
       if(Math.abs(delta)>.00018){current[key]+=delta*fraction;moving=true;}else current[key]=target[key];
     });
     emphasis.forEach((value,index)=>{
-      const goal = index===selectedLayer?1:0;
+      const goal = selectedLayers.includes(index)?1:0;
       if(Math.abs(goal-value)>.002){emphasis[index]+= (goal-value)*fraction;moving=true;}else emphasis[index]=goal;
     });
     ['x','y'].forEach(key=>{
@@ -243,13 +283,14 @@
     if(records.some(record=>(' '+(record.oldValue||'')+' ').includes(' motion-paused ')!==paused))motion();
   }).observe(root,{attributes:true,attributeFilter:['class'],attributeOldValue:true});
   const rows = [...document.querySelectorAll('.index-row')];
-  const layers = [0,1,2,2,1,0,2];
-  const selectLayer = index => { if(!canMove())return;selectedLayer=index;request(); };
+  // Racks, networks and code each light their own plane. Operations and people span the whole stack.
+  const layers = [[0],[1],[2],[2],[0,1,2],[0,1,2],[2]];
+  const selectLayers = list => { if(!canMove())return;selectedLayers=list||[];request(); };
   rows.forEach((row,index)=>{
-    row.addEventListener('pointerenter',event=>{if(fine.matches&&event.pointerType!=='touch')selectLayer(layers[index]);});
-    row.addEventListener('pointerleave',()=>{if(!row.contains(document.activeElement))selectLayer(-1);});
-    row.addEventListener('focusin',()=>selectLayer(layers[index]));
-    row.addEventListener('focusout',event=>{if(!row.contains(event.relatedTarget))selectLayer(-1);});
+    row.addEventListener('pointerenter',event=>{if(fine.matches&&event.pointerType!=='touch')selectLayers(layers[index]);});
+    row.addEventListener('pointerleave',()=>{if(!row.contains(document.activeElement))selectLayers([]);});
+    row.addEventListener('focusin',()=>selectLayers(layers[index]));
+    row.addEventListener('focusout',event=>{if(!row.contains(event.relatedTarget))selectLayers([]);});
   });
   window.grokExperience={refresh:resize};
   resize();document.fonts?.ready.then(()=>{measure();readTarget();canMove()?request():settle();});

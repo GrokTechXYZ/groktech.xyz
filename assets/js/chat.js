@@ -5,8 +5,9 @@
   let returnTarget = null;
   const widget = () => document.getElementById('bubblegram-host');
   const focusComposer = panel => {
-    const input = [...panel.querySelectorAll('input:not([type="file"]), textarea')].find(field => !field.disabled && field.getClientRects().length);
-    (input || panel.querySelector('.panel-header-close'))?.focus({ preventScroll: true });
+    // Start with the message itself. The email field stays available for a follow-up.
+    const fields = [...panel.querySelectorAll('textarea, input:not([type="file"])')].filter(field => !field.disabled && field.getClientRects().length);
+    (fields.find(field => field.matches('textarea')) || fields[0] || panel.querySelector('.panel-header-close'))?.focus({ preventScroll: true });
   };
   invitations.forEach(invitation => {
     const pointToChat = () => widget()?.toggleAttribute('data-chat-attention', invitation.matches(':focus') || (matchMedia('(hover: hover)').matches && invitation.matches(':hover')));
