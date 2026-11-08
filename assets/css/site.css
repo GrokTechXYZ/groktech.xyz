@@ -30,3 +30,13 @@
 .grok-history time{display:inline-block;min-width:44px;color:var(--gold)}
 @media(max-width:760px){.grok-entry{margin-top:18px;padding-top:14px}.grok-entry dfn{font-size:32px}.grok-entry .grok-meaning{margin-top:8px;font-size:15px}.grok-entry .grok-history{margin-top:8px}}
 @media(max-height:800px) and (min-width:901px){.perception-stage{padding-top:118px}.perception-copy h2{font-size:clamp(64px,6.6vw,104px)}.grok-entry{margin-top:24px}}
+
+/* Offer block (Sovereign AI Launch) */
+.offer-block{margin-top:56px}
+.offer-block .eyebrow{color:var(--gold)}
+.offer-block h3{font-size:clamp(30px,3.4vw,56px);font-weight:380;line-height:1.04;letter-spacing:-.05em;margin-top:16px}
+.offer-block h3 em{color:var(--blue)}
+.offer-block>p:not(.eyebrow):not(.offer-meta){font-size:17px;color:#53636d;max-width:620px;margin-top:20px}
+.offer-block .offer-meta{font-size:13px;color:var(--muted);margin-top:14px;letter-spacing:.02em}
+.offer-block .text-link{margin-top:6px}
+@media(max-width:760px){.offer-block{margin-top:40px}.offer-block h3{font-size:clamp(30px,8.4vw,44px)}.offer-block>p:not(.eyebrow):not(.offer-meta){font-size:15px}}
